@@ -6,6 +6,7 @@ Checks: >
     -zircon-*,
     -abseil-*,
     -llvm-*,
+    -cppcoreguidelines-pro-type-union-access,
 WarningsAsErrors: '1'
 HeaderFilterRegex: ''
 FormatStyle: none
