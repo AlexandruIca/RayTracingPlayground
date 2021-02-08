@@ -10,6 +10,7 @@ auto main() -> int
     std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
     for(int j = image_height - 1; j >= 0; --j) {
+        std::cerr << "\rScanlines remaining: " << j << std::flush;
         for(int i = 0; i < image_width; ++i) {
             auto const r = double(i) / (image_width - 1);
             auto const g = double(j) / (image_height - 1);
@@ -22,4 +23,6 @@ auto main() -> int
             std::cout << static_cast<int>(max_color * b) << '\n';
         }
     }
+
+    std::cerr << "\nDone!" << std::endl;
 }
