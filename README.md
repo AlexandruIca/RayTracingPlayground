@@ -5,4 +5,4 @@ though I'm planning to follow the other boooks in the series, and any other inte
 I see for ray tracing.
 
 # Demo
-![Sample Output](media/demo.ppm)
+![Sample Output](media/demo.png)
