@@ -2,6 +2,15 @@
 
 #include <glm/glm.hpp>
 
+auto write_color(std::ostream& os, glm::dvec3 const pixel_color) -> void
+{
+    constexpr double max_color = 255.999;
+
+    os << static_cast<int>(max_color * pixel_color.r) << ' ';
+    os << static_cast<int>(max_color * pixel_color.g) << ' ';
+    os << static_cast<int>(max_color * pixel_color.b) << '\n';
+}
+
 auto main() -> int
 {
     constexpr int image_width = 384;
@@ -12,15 +21,9 @@ auto main() -> int
     for(int j = image_height - 1; j >= 0; --j) {
         std::cerr << "\rScanlines remaining: " << j << std::flush;
         for(int i = 0; i < image_width; ++i) {
-            auto const r = double(i) / (image_width - 1);
-            auto const g = double(j) / (image_height - 1);
-            auto const b = 0.25;
-
-            constexpr double max_color = 255.999;
-
-            std::cout << static_cast<int>(max_color * r) << ' ';
-            std::cout << static_cast<int>(max_color * g) << ' ';
-            std::cout << static_cast<int>(max_color * b) << '\n';
+            constexpr double arbitrary = 0.25;
+            auto pixel_color = glm::dvec3{ double(i) / (image_width - 1), double(j) / (image_height - 1), arbitrary };
+            write_color(std::cout, pixel_color);
         }
     }
 
