@@ -13,6 +13,22 @@ auto write_color(std::ostream& os, glm::dvec3 const pixel_color) -> void
     os << static_cast<int>(max_color * pixel_color.b) << '\n';
 }
 
+// We have to solve:
+// $ (P - C) (P - C) = r^2 $
+// AKA
+// $ (P(t) - C) (P(t) - C) = r^2 $
+// AKA
+// $ (A + t b - C) (A + t b - C) = r^2 $
+// AKA
+// $ t^2 b b + 2 t b (A - C) + (A - C) (A - C) - r^2 = 0 $
+// where $b = r.direction()$
+//
+// In this function:
+// $ a = b b $
+// $ b = 2 b (A - C) $
+// $ c = (A - C) (A - C) - r^2 $
+// So:
+// $ \delta = b^2 - 4 a c $
 [[nodiscard]] auto hit_sphere(glm::dvec3 const& center, double const radius, ray const& r) -> bool
 {
     glm::dvec3 const oc = r.origin() - center;
