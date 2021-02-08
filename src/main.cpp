@@ -13,8 +13,26 @@ auto write_color(std::ostream& os, glm::dvec3 const pixel_color) -> void
     os << static_cast<int>(max_color * pixel_color.b) << '\n';
 }
 
+[[nodiscard]] auto hit_sphere(glm::dvec3 const& center, double const radius, ray const& r) -> bool
+{
+    glm::dvec3 const oc = r.origin() - center;
+
+    auto const a = glm::dot(r.direction(), r.direction());
+    auto const b = 2.0 * glm::dot(oc, r.direction());
+    auto const c = dot(oc, oc) - radius * radius;
+    auto const discriminant = b * b - 4 * a * c;
+
+    return discriminant > 0;
+}
+
 [[nodiscard]] auto get_background(ray const& r)
 {
+    constexpr double sphere_radius = 0.5;
+
+    if(hit_sphere(glm::dvec3{ 0, 0, -1.0 }, sphere_radius, r)) {
+        return glm::dvec3{ 1.0, 0, 0 };
+    }
+
     auto const unit_direction = glm::normalize(r.direction());
     auto const t = 0.5 * (unit_direction.y + 1.0);
     auto const random_color = glm::dvec3{ 0.5, 0.7, 1.0 };
