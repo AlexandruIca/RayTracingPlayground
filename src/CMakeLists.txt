@@ -1,4 +1,7 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-add_executable(${CMAKE_PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp ${CMAKE_CURRENT_SOURCE_DIR}/ray.cpp)
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE project_options project_warnings glm::glm)
+add_library(project_utils STATIC ${CMAKE_CURRENT_SOURCE_DIR}/utilities.cpp ${CMAKE_CURRENT_SOURCE_DIR}/ray.cpp)
+target_link_libraries(project_utils PUBLIC project_options project_warnings glm::glm)
+
+add_executable(${CMAKE_PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE project_options project_warnings project_utils)

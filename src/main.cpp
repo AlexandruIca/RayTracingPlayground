@@ -3,15 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "ray.hpp"
-
-auto write_color(std::ostream& os, glm::dvec3 const pixel_color) -> void
-{
-    constexpr double max_color = 255.999;
-
-    os << static_cast<int>(max_color * pixel_color.r) << ' ';
-    os << static_cast<int>(max_color * pixel_color.g) << ' ';
-    os << static_cast<int>(max_color * pixel_color.b) << '\n';
-}
+#include "utilities.hpp"
 
 // We have to solve:
 // $ (P - C) (P - C) = r^2 $
@@ -29,9 +21,9 @@ auto write_color(std::ostream& os, glm::dvec3 const pixel_color) -> void
 // $ c = (A - C) (A - C) - r^2 $
 // So:
 // $ \delta = b^2 - 4 a c $
-[[nodiscard]] auto hit_sphere(glm::dvec3 const& center, double const radius, ray const& r) -> bool
+[[nodiscard]] auto hit_sphere(point3 const& center, double const radius, ray const& r) -> bool
 {
-    glm::dvec3 const oc = r.origin() - center;
+    vec3 const oc = r.origin() - center;
 
     auto const a = glm::dot(r.direction(), r.direction());
     auto const b = 2.0 * glm::dot(oc, r.direction());
@@ -41,18 +33,19 @@ auto write_color(std::ostream& os, glm::dvec3 const pixel_color) -> void
     return discriminant > 0;
 }
 
-[[nodiscard]] auto get_background(ray const& r)
+[[nodiscard]] auto get_background(ray const& r) -> color
 {
     constexpr double sphere_radius = 0.5;
 
-    if(hit_sphere(glm::dvec3{ 0, 0, -1.0 }, sphere_radius, r)) {
-        return glm::dvec3{ 1.0, 0, 0 };
+    if(hit_sphere(point3{ 0, 0, -1.0 }, sphere_radius, r)) {
+        return color{ 1.0, 0, 0 };
     }
 
     auto const unit_direction = glm::normalize(r.direction());
     auto const t = 0.5 * (unit_direction.y + 1.0);
-    auto const random_color = glm::dvec3{ 0.5, 0.7, 1.0 };
-    return (1.0 - t) * glm::dvec3{ 1.0, 1.0, 1.0 } + t * random_color;
+    auto const blue = color{ 0.5, 0.7, 1.0 };
+    auto const white = color{ 1.0, 1.0, 1.0 };
+    return (1.0 - t) * white + t * blue;
 }
 
 auto main() -> int
@@ -66,10 +59,10 @@ auto main() -> int
     constexpr double viewport_width = aspect_ratio * viewport_height;
     constexpr double focal_length = 1.0;
 
-    auto const origin = glm::dvec3{ 0, 0, 0 };
-    auto const horizontal = glm::dvec3{ viewport_width, 0, 0 };
-    auto const vertical = glm::dvec3{ 0, viewport_height, 0 };
-    auto const lower_left_corner = origin - horizontal * 0.5 - vertical * 0.5 - glm::dvec3{ 0, 0, focal_length };
+    auto const origin = point3{ 0, 0, 0 };
+    auto const horizontal = vec3{ viewport_width, 0, 0 };
+    auto const vertical = vec3{ 0, viewport_height, 0 };
+    auto const lower_left_corner = origin - horizontal * 0.5 - vertical * 0.5 - vec3{ 0, 0, focal_length };
 
     std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
@@ -79,7 +72,7 @@ auto main() -> int
             auto const u = double(i) / (image_width - 1);
             auto const v = double(j) / (image_height - 1);
             ray const r{ origin, lower_left_corner + u * horizontal + v * vertical - origin };
-            glm::dvec3 const pixel_color = get_background(r);
+            color const pixel_color = get_background(r);
 
             write_color(std::cout, pixel_color);
         }
