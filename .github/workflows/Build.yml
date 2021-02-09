@@ -1,0 +1,40 @@
+name: Builds for Windows, Mac, Linux
+
+on:
+    push:
+        branches: [ master, gh-actions ]
+
+jobs:
+    build:
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ windows-latest, macos-latest, ubuntu-latest ]
+        steps:
+        - uses: actions/checkout@v2
+
+        - uses: actions/setup-python@v2
+          with:
+              python-version: '3.x'
+
+        - name: Install conan and cmake-format
+          run: |
+              pip install conan cmake-format
+
+        - name: Install dependencies
+          run: |
+              mkdir build && cd build
+              conan install ..
+
+        - name: Build project with tests
+          run: |
+              cd build
+
+              cmake -Ax64 -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTING=ON ..
+
+              cmake --build .
+
+        - name: Run tests
+          run: |
+              cd build
+              ctest
