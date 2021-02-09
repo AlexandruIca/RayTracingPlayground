@@ -42,7 +42,7 @@ jobs:
 
               CC=clang-${CLANG_VER} CXX=clang++-${CLANG_VER} cmake \
                 -DCMAKE_BUILD_TYPE=Debug \
-                -DENABLE_CLANG_TIDY=ON \
+                -DENABLE_CLANG_TIDY=OFF \
                 -DENABLE_TESTING=OFF \
                 -DENABLE_CACHE=OFF \
                 ..
@@ -58,3 +58,7 @@ jobs:
         - name: Run clang-format
           run: |
               CLANG_FORMAT_PATH=clang-format-${CLANG_VER} ./scripts/clang-format.sh
+
+        - name: Run clang-tidy
+          run: |
+              CLANG_TIDY_PATH=clang-tidy-${CLANG_VER} ./scripts/clang-tidy.sh
