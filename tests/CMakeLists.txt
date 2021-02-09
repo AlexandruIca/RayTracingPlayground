@@ -6,3 +6,4 @@ endfunction()
 
 build_test(simple_red_circle)
 build_test(simple_circle_with_normals)
+build_test(simple_circle_simplified_intersection)
