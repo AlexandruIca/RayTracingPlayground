@@ -31,7 +31,7 @@ jobs:
           run: |
               cd build
 
-              cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTING=ON ..
+              cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTING=ON -DENABLE_CACHE=OFF ..
 
               cmake --build .
 
