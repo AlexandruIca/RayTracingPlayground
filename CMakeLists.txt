@@ -51,6 +51,6 @@ find_package(glm REQUIRED)
 add_subdirectory(src)
 
 if(ENABLE_TESTING)
-    enable_testing()
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tests/)
+  enable_testing()
+  add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tests/)
 endif()

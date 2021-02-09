@@ -1,7 +1,7 @@
 function(build_test TEST_NAME)
-    add_executable(${TEST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/${TEST_NAME}.cpp)
-    target_link_libraries(${TEST_NAME} PRIVATE project_options project_warnings project_utils)
-    add_test(${TEST_NAME} ${TEST_NAME})
+  add_executable(${TEST_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/${TEST_NAME}.cpp)
+  target_link_libraries(${TEST_NAME} PRIVATE project_options project_warnings project_utils)
+  add_test(${TEST_NAME} ${TEST_NAME})
 endfunction()
 
 build_test(simple_red_circle)
