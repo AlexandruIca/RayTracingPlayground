@@ -58,7 +58,7 @@ auto write_color(std::ostream& os, glm::dvec3 const pixel_color) -> void
 auto main() -> int
 {
     constexpr double aspect_ratio = 16.0 / 9.0;
-    constexpr int image_width = 500;
+    constexpr int image_width = 1400;
     constexpr int image_height = static_cast<int>(static_cast<double>(image_width) / aspect_ratio);
 
     // camera
