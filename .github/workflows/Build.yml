@@ -17,9 +17,10 @@ jobs:
           with:
               python-version: '3.x'
 
-        - name: Install conan and cmake-format
+        - name: Install conan
           run: |
-              pip install conan cmake-format
+              python -m pip install --upgrade pip
+              pip install conan
 
         - name: Install dependencies
           run: |
@@ -30,11 +31,12 @@ jobs:
           run: |
               cd build
 
-              cmake -Ax64 -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTING=ON ..
+              cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTING=ON ..
 
               cmake --build .
 
         - name: Run tests
           run: |
               cd build
+
               ctest
