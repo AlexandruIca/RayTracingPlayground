@@ -49,3 +49,8 @@ set(CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR} ${CMAKE_PREFIX_PATH})
 find_package(glm REQUIRED)
 
 add_subdirectory(src)
+
+if(ENABLE_TESTING)
+    enable_testing()
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tests/)
+endif()
