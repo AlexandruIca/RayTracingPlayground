@@ -1,0 +1,60 @@
+name: Static Analysis
+
+on:
+    push:
+        branches: [ master, gh-actions ]
+
+jobs:
+    build:
+        env:
+            CLANG_VER: 10
+
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+
+        - name: Install clang tooling
+          run: |
+              sudo apt update -y
+
+              sudo apt install -y \
+                clang-${CLANG_VER} \
+                clang-format-${CLANG_VER} \
+                clang-tidy-${CLANG_VER}
+
+        - uses: actions/setup-python@v2
+          with:
+              python-version: '3.x'
+
+        - name: Install conan and cmake-format
+          run: |
+              python -m pip install --upgrade pip
+              pip install conan cmake-format
+
+        - name: Install dependencies
+          run: |
+              mkdir build && cd build
+              conan install ..
+
+        - name: Build project
+          run: |
+              cd build
+
+              cmake \
+                -DCMAKE_BUILD_TYPE=Debug \
+                -DENABLE_CLANG_TIDY=ON \
+                -DENABLE_TESTING=OFF \
+                -DENABLE_CACHE=OFF \
+                ..
+
+              mv compile_commands.json ..
+
+              cmake --build .
+
+        - name: Run cmake-format
+          run: |
+              ./scripts/check-cmake-format.sh
+
+        - name: Run clang-format
+          run: |
+              CLANG_FORMAT_PATH=clang-format-${CLANG_VER} ./scripts/clang-format.sh
