@@ -19,7 +19,9 @@ public:
     ~hittable_list() noexcept override = default;
 
     auto operator=(hittable_list const&) -> hittable_list& = default;
+    // clang-format off
     auto operator=(hittable_list&&) -> hittable_list& = default;
+    // clang-format off
 
     auto clear() -> void;
     auto add(std::unique_ptr<hittable> object) -> void;
