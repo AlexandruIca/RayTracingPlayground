@@ -10,7 +10,10 @@ struct hit_record
     point3 point{};
     vec3 normal{};
     double t = 0.0;
+    bool front_face = false;
 };
+
+auto set_face_normal(hit_record& record, ray const& r, vec3 const& outward_normal) noexcept -> void;
 
 class hittable
 {

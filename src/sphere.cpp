@@ -34,7 +34,8 @@ auto sphere::hit(ray const& r, double const t_min, double const t_max, hit_recor
 
     record.t = root;
     record.point = r.at(record.t);
-    record.normal = (record.point - m_center) / m_radius;
+    vec3 const outward_normal = (record.point - m_center) / m_radius;
+    set_face_normal(record, r, outward_normal);
 
     return true;
 }
