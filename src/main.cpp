@@ -8,6 +8,7 @@
 [[nodiscard]] auto ray_color(ray const& r, hittable const& world, int const max_depth) -> color
 {
     constexpr double half = 0.5;
+    constexpr double min_threshold = 0.001;
     auto const blue = color{ 0.5, 0.7, 1.0 };
     auto const white = color{ 1.0, 1.0, 1.0 };
     hit_record record{};
@@ -16,7 +17,7 @@
         return color{ 0, 0, 0 };
     }
 
-    if(world.hit(r, 0, infinity, record)) {
+    if(world.hit(r, min_threshold, infinity, record)) {
         point3 target = record.point + record.normal + random_in_unit_sphere();
         return half * ray_color(ray{ record.point, target - record.point }, world, max_depth - 1);
         // return half * (record.normal + color{ 1, 1, 1 });
