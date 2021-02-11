@@ -26,9 +26,10 @@ auto write_color_over_samples(std::ostream& os, color const& pixel_color, int co
 
     auto const scale = 1.0 / double(spp);
 
-    r *= scale;
-    g *= scale;
-    b *= scale;
+    // gamma 2
+    r = glm::sqrt(scale * r);
+    g = glm::sqrt(scale * g);
+    b = glm::sqrt(scale * b);
 
     os << static_cast<int>(max_color * std::clamp(r, 0.0, max_factor)) << ' '
        << static_cast<int>(max_color * std::clamp(g, 0.0, max_factor)) << ' '
