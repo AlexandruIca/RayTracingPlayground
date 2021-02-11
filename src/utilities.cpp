@@ -71,3 +71,8 @@ auto random_in_unit_sphere() -> vec3
         return point;
     }
 }
+
+auto random_unit_vector() -> vec3
+{
+    return glm::normalize(random_in_unit_sphere());
+}

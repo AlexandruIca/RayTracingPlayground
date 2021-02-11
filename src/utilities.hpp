@@ -40,5 +40,9 @@ auto random_vec3_between(double min, double max) -> vec3;
 /// \returns A random point that is inside the unit sphere(the sphere in the cube of volume 1).
 ///
 auto random_in_unit_sphere() -> vec3;
+///
+/// \returns A random point that is _on_ the unit sphere.
+///
+auto random_unit_vector() -> vec3;
 
 #endif // !UTILITIES_HPP
