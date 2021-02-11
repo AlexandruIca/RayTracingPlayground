@@ -18,9 +18,8 @@
     }
 
     if(world.hit(r, min_threshold, infinity, record)) {
-        point3 target = record.point + record.normal + random_in_unit_sphere();
+        point3 target = record.point + record.normal + random_unit_vector();
         return half * ray_color(ray{ record.point, target - record.point }, world, max_depth - 1);
-        // return half * (record.normal + color{ 1, 1, 1 });
     }
 
     vec3 const unit_direction = glm::normalize(r.direction());
