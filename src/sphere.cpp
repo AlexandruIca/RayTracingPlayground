@@ -11,10 +11,10 @@ sphere::sphere(point3 const center, double const radius)
 {
 }
 
-sphere::sphere(point3 const center, double const radius, std::shared_ptr<material> material)
+sphere::sphere(point3 const center, double const radius, std::shared_ptr<material> mat)
     : m_center{ center }
     , m_radius{ radius }
-    , m_material{ std::move(material) }
+    , m_material{ std::move(mat) }
 {
 }
 
@@ -46,7 +46,7 @@ auto sphere::hit(ray const& r, double const t_min, double const t_max, hit_recor
     record.point = r.at(record.t);
     vec3 const outward_normal = (record.point - m_center) / m_radius;
     set_face_normal(record, r, outward_normal);
-    record.material = m_material;
+    record.material_ref = m_material;
 
     return true;
 }

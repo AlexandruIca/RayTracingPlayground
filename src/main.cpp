@@ -23,7 +23,7 @@
         ray scattered{};
         color attenuation{};
 
-        if(record.material->scatter(r, record, attenuation, scattered)) {
+        if(record.material_ref->scatter(r, record, attenuation, scattered)) {
             return attenuation * ray_color(scattered, world, max_depth - 1);
         }
 

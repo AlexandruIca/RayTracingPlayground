@@ -12,7 +12,7 @@ struct hit_record
 {
     point3 point{};
     vec3 normal{};
-    std::shared_ptr<material> material{ nullptr };
+    std::shared_ptr<material> material_ref{ nullptr };
     double t = 0.0;
     bool front_face = false;
 };
