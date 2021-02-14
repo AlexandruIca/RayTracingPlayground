@@ -2,13 +2,17 @@
 #define HITTABLE_HPP
 #pragma once
 
+#include "material.hpp"
 #include "ray.hpp"
 #include "utilities.hpp"
+
+#include <memory>
 
 struct hit_record
 {
     point3 point{};
     vec3 normal{};
+    std::shared_ptr<material> material{ nullptr };
     double t = 0.0;
     bool front_face = false;
 };

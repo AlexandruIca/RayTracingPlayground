@@ -3,12 +3,16 @@
 #pragma once
 
 #include "hittable.hpp"
+#include "material.hpp"
+
+#include <memory>
 
 class sphere : public hittable
 {
 private:
     point3 m_center{};
     double m_radius{};
+    std::shared_ptr<material> m_material{ nullptr };
 
 public:
     sphere() noexcept = default;
@@ -17,6 +21,7 @@ public:
     ~sphere() noexcept override = default;
 
     sphere(point3 center, double radius);
+    sphere(point3 center, double radius, std::shared_ptr<material> material);
 
     auto operator=(sphere const&) noexcept -> sphere& = default;
     auto operator=(sphere&&) noexcept -> sphere& = default;
