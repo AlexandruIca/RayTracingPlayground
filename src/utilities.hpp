@@ -45,4 +45,6 @@ auto random_in_unit_sphere() -> vec3;
 ///
 auto random_unit_vector() -> vec3;
 
+auto near_zero(vec3 const& vec) -> bool;
+
 #endif // !UTILITIES_HPP

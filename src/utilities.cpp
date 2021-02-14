@@ -76,3 +76,9 @@ auto random_unit_vector() -> vec3
 {
     return glm::normalize(random_in_unit_sphere());
 }
+
+auto near_zero(vec3 const& vec) -> bool
+{
+    constexpr double eps = 1e-8;
+    return glm::abs(vec.x) < eps && glm::abs(vec.y) < eps && glm::abs(vec.z) < eps;
+}

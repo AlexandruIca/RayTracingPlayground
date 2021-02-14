@@ -7,7 +7,8 @@ add_library(
   ${CMAKE_CURRENT_SOURCE_DIR}/sphere.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/hittable.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/hittable_list.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/camera.cpp)
+  ${CMAKE_CURRENT_SOURCE_DIR}/camera.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lambertian.cpp)
 target_include_directories(project_utils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(project_utils PUBLIC project_options project_warnings glm::glm)
 
