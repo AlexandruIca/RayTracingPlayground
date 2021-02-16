@@ -18,6 +18,10 @@ struct camera_parameters
 
     static constexpr double s_default_vert_fov = 90.0;
     double vert_fov = s_default_vert_fov;
+
+    point3 lookfrom{ 0, 0, 0 };
+    point3 lookat{ 0, 0, -1 };
+    vec3 up{ 0, 1, 0 };
 };
 
 class camera
@@ -39,7 +43,7 @@ public:
     auto operator=(camera const&) noexcept -> camera& = default;
     auto operator=(camera&&) noexcept -> camera& = default;
 
-    [[nodiscard]] auto get_ray(double u, double v) const noexcept -> ray;
+    [[nodiscard]] auto get_ray(double s, double t) const noexcept -> ray;
 };
 
 #endif // !CAMERA_HPP
