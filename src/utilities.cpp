@@ -87,3 +87,12 @@ auto reflect(vec3 const& vec, vec3 const& normal) -> vec3
 {
     return vec - 2 * glm::dot(vec, normal) * normal;
 }
+
+auto refract(vec3 const& uv, vec3 const& normal, double const etai_over_etat) -> vec3
+{
+    auto const cos_theta = glm::min(glm::dot(-uv, normal), 1.0);
+    vec3 const r_out_perp = etai_over_etat * (uv + cos_theta * normal);
+    vec3 const r_out_parallel = -glm::sqrt(glm::abs(1.0 - glm::length2(r_out_perp))) * normal;
+
+    return r_out_perp + r_out_parallel;
+}
