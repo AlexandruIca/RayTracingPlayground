@@ -8,6 +8,7 @@ class metal : public material
 {
 private:
     color m_albedo{};
+    double m_fuzz_factor{};
 
 public:
     metal() noexcept = default;
@@ -16,6 +17,7 @@ public:
     ~metal() noexcept override = default;
 
     explicit metal(color const& albedo) noexcept;
+    metal(color const& albedo, double fuzz_factor) noexcept;
 
     auto operator=(metal const&) noexcept -> metal& = default;
     auto operator=(metal&&) noexcept -> metal& = default;
