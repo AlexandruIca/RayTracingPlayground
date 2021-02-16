@@ -96,3 +96,16 @@ auto refract(vec3 const& uv, vec3 const& normal, double const etai_over_etat) ->
 
     return r_out_perp + r_out_parallel;
 }
+
+auto random_in_unit_disk() -> vec3
+{
+    while(true) {
+        auto const p = vec3{ random_double_between(-1, 1), random_double_between(-1, 1), 0 };
+
+        if(glm::length2(p) >= 1) {
+            continue;
+        }
+
+        return p;
+    }
+}

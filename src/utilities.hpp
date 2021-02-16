@@ -50,4 +50,6 @@ auto near_zero(vec3 const& vec) -> bool;
 auto reflect(vec3 const& vec, vec3 const& normal) -> vec3;
 auto refract(vec3 const& uv, vec3 const& normal, double etai_over_etat) -> vec3;
 
+auto random_in_unit_disk() -> vec3;
+
 #endif // !UTILITIES_HPP
