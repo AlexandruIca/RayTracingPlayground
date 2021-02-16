@@ -47,4 +47,6 @@ auto random_unit_vector() -> vec3;
 
 auto near_zero(vec3 const& vec) -> bool;
 
+auto reflect(vec3 const& vec, vec3 const& normal) -> vec3;
+
 #endif // !UTILITIES_HPP

@@ -82,3 +82,8 @@ auto near_zero(vec3 const& vec) -> bool
     constexpr double eps = 1e-8;
     return glm::abs(vec.x) < eps && glm::abs(vec.y) < eps && glm::abs(vec.z) < eps;
 }
+
+auto reflect(vec3 const& vec, vec3 const& normal) -> vec3
+{
+    return vec - 2 * glm::dot(vec, normal) * normal;
+}
