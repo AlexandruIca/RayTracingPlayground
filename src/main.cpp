@@ -43,8 +43,8 @@ auto main() -> int
     constexpr double aspect_ratio = 16.0 / 9.0;
     constexpr int image_width = 1400;
     constexpr int image_height = static_cast<int>(static_cast<double>(image_width) / aspect_ratio);
-    constexpr int samples_per_pixel = 100;
-    constexpr int max_depth = 50;
+    constexpr int samples_per_pixel = 10;
+    constexpr int max_depth = 10;
 
     camera cam{};
     hittable_list world{};
@@ -53,7 +53,7 @@ auto main() -> int
     auto const brownish = color{ 0.7, 0.3, 0.3 };
     auto const goldish = color{ 0.8, 0.6, 0.2 };
 
-    constexpr double fuzz_factor = 1.0;
+    constexpr double fuzz_factor = 0.0;
     constexpr double refraction_index = 1.5;
 
     auto material_ground = std::make_shared<lambertian>(yellowish);
