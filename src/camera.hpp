@@ -19,6 +19,12 @@ struct camera_parameters
     static constexpr double s_default_vert_fov = 90.0;
     double vert_fov = s_default_vert_fov;
 
+    static constexpr double s_default_aperture = 1.0;
+    double aperture = s_default_aperture;
+
+    static constexpr double s_default_focus_distance = 1.0;
+    double focus_distance = s_default_focus_distance;
+
     point3 lookfrom{ 0, 0, 0 };
     point3 lookat{ 0, 0, -1 };
     vec3 up{ 0, 1, 0 };
@@ -31,6 +37,10 @@ private:
     vec3 m_horizontal{};
     vec3 m_vertical{};
     point3 m_lower_left_corner{};
+    vec3 m_u{};
+    vec3 m_v{};
+    vec3 m_w{};
+    double m_lens_radius{};
 
 public:
     camera() noexcept;

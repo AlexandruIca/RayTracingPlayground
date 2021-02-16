@@ -17,17 +17,21 @@ camera::camera(camera_parameters const parameters) noexcept
     auto const viewport_height = 2.0 * h;
     auto const viewport_width = parameters.aspect_ration * viewport_height;
 
-    auto const w = glm::normalize(parameters.lookfrom - parameters.lookat);
-    auto const u = glm::normalize(glm::cross(parameters.up, w));
-    auto const v = glm::cross(w, u);
+    m_w = glm::normalize(parameters.lookfrom - parameters.lookat);
+    m_u = glm::normalize(glm::cross(parameters.up, m_w));
+    m_v = glm::cross(m_w, m_u);
 
     m_origin = parameters.lookfrom;
-    m_horizontal = viewport_width * u;
-    m_vertical = viewport_height * v;
-    m_lower_left_corner = m_origin - half * m_horizontal - half * m_vertical - w;
+    m_horizontal = parameters.focus_distance * viewport_width * m_u;
+    m_vertical = parameters.focus_distance * viewport_height * m_v;
+    m_lower_left_corner = m_origin - half * m_horizontal - half * m_vertical - parameters.focus_distance * m_w;
+    m_lens_radius = half * parameters.aperture;
 }
 
 auto camera::get_ray(double const s, double const t) const noexcept -> ray
 {
-    return ray{ m_origin, m_lower_left_corner + s * m_horizontal + t * m_vertical - m_origin };
+    vec3 const rd = m_lens_radius * random_in_unit_disk();
+    vec3 const offset = m_u * rd.x + m_v * rd.y;
+
+    return ray{ m_origin + offset, m_lower_left_corner + s * m_horizontal + t * m_vertical - m_origin - offset };
 }
