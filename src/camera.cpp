@@ -12,10 +12,13 @@ camera::camera(camera_parameters const parameters) noexcept
     , m_lower_left_corner{}
 {
     constexpr double half = 0.5;
-    auto const viewport_width = parameters.aspect_ration * parameters.viewport_height;
+    auto const theta = glm::radians(parameters.vert_fov);
+    auto const h = glm::tan(theta * 0.5);
+    auto const viewport_height = 2.0 * h;
+    auto const viewport_width = parameters.aspect_ration * viewport_height;
 
     m_horizontal = vec3{ viewport_width, 0.0, 0.0 };
-    m_vertical = vec3{ 0.0, parameters.viewport_height, 0.0 };
+    m_vertical = vec3{ 0.0, viewport_height, 0.0 };
     m_lower_left_corner = m_origin - half * m_horizontal - half * m_vertical - vec3{ 0, 0, parameters.focal_length };
 }
 

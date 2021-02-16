@@ -15,6 +15,9 @@ struct camera_parameters
 
     static constexpr double s_default_focal_length = 1.0;
     double focal_length = s_default_focal_length;
+
+    static constexpr double s_default_vert_fov = 90.0;
+    double vert_fov = s_default_vert_fov;
 };
 
 class camera
